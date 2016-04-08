@@ -1,0 +1,119 @@
+@charset "utf-8";
+@import url(https://fonts.googleapis.com/css?family=Alegreya+Sans);
+
+*
+{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+}
+
+#display
+{
+	width: 100%;
+	height: 100%;
+
+	overflow: hidden;
+
+	font-family: 'Alegreya Sans', sans-serif;
+	font-size: 200px;
+	font-weight: 800;
+	font-variant: normal;
+}
+
+.fill
+{
+	position: absolute;
+	left: 0; right: 0; top: 0; bottom: 0;
+}
+
+.face
+{
+	width: inherit;
+	height: inherit;
+}
+
+.time
+{
+	width: auto;
+	height: auto;
+
+	position: relative;
+	margin: 0 auto 0 10%;
+	top: 50%;
+	transform: translateY(-50%);
+
+	text-align: left;
+
+
+	color: rgb(245, 245, 255);
+}
+
+.time p
+{
+	font-size: 1em;
+	line-height: 1;
+}
+
+.tween
+{
+	backface-visibility: hidden;
+}
+
+.th
+{
+	transition: opacity 600ms ease-in-out;
+}
+
+.tm
+{
+	transition: opacity 400ms ease-in-out;
+}
+
+.ts
+{
+	transition: opacity 200ms ease-in-out;
+}
+
+.bg
+{
+	transition: 1400ms ease-in;
+}
+
+.timeChange
+{
+	opacity: 0;
+}
+
+.light-early-morning
+{
+	background: #ff7f00;
+}
+
+.light-morning
+{
+	background: #00ffd5;
+}
+
+.light-day
+{
+	background: #00d5ff;
+}
+
+.light-afternoon
+{
+	background: #21b2cf;
+}
+
+.light-evening
+{
+	background: #189596;
+}
+
+.light-night
+{
+	background: #263e3e;
+}
+
+
