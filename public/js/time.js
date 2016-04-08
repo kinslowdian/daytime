@@ -17,6 +17,7 @@ function time_init(event)
 	timeData = {};
 
 	timeData.face = {};
+	timeData.face.main = document.querySelector("#display .time p");
 	timeData.face.h = document.querySelector("#display .th");
 	timeData.face.m = document.querySelector("#display .tm");
 	timeData.face.s = document.querySelector("#display .ts");
@@ -197,6 +198,8 @@ function timeDisplay_event(event)
 		timeData.current.m = timeData.read.m;
 
 		timeData.face.m.classList.remove('timeChange');
+
+		timeDisplay_minute();
 	}
 
 
@@ -209,6 +212,18 @@ function timeDisplay_event(event)
 
 		timeData.face.s.classList.remove('timeChange');
 	}
+}
+
+function timeDisplay_minute()
+{
+	timeData.face.main.addEventListener("animationend", timeDisplay_minute_event, false);
+	timeData.face.main.classList.add("time-loop");
+}
+
+function timeDisplay_minute_event(event)
+{
+	timeData.face.main.removeEventListener("animationend", timeDisplay_minute_event, false);
+	timeData.face.main.classList.remove("time-loop");
 }
 
 function timeDisplay_light()

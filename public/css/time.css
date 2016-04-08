@@ -69,6 +69,18 @@
 	line-height: 1;
 }
 
+.time-loop
+{
+	animation: timeLoopFrames 2000ms ease-in-out forwards;
+}
+
+@keyframes timeLoopFrames
+{
+	0%		{transform: translateX(0%);}
+	50%		{transform: translateX(-100%);}
+	100%	{transform: translateX(0%);}
+}
+
 .tween
 {
 	backface-visibility: hidden;
