@@ -63,7 +63,8 @@ function time_show()
 function time_show_event(event)
 {
 	fader.removeEventListener("transitionend", time_show_event, false);
-	fader.parentNode.removeChild(fader);
+	// fader.parentNode.removeChild(fader);
+	fader.remove();
 }
 
 function enterFrame_init(run)
