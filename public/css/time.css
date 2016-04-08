@@ -34,6 +34,19 @@
 	height: inherit;
 }
 
+.fader
+{
+	background: #fff;
+
+}
+
+.fader
+{
+	transition: 2s ease-in;
+}
+
+
+
 .time
 {
 	width: auto;
@@ -76,7 +89,7 @@
 	transition: opacity 200ms ease-in-out;
 }
 
-.bg
+.bg .tween
 {
 	transition: 1400ms ease-in;
 }

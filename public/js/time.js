@@ -4,10 +4,15 @@ var timeData;
 var enterFrame;
 var loop = false;
 var light;
+var first = false;
+
+var fader;
 
 function time_init(event)
 {
 	trace(this);
+
+	fader = document.querySelector("#display .fader");
 
 	timeData = {};
 
@@ -19,14 +24,18 @@ function time_init(event)
 	timeData.data = new Date(Date.now());
 
 	timeData.read = {};
-	timeData.read.h = 0;
-	timeData.read.m = 0;
-	timeData.read.s = 0;
+	timeData.read.h = timeData.data.getHours();
+	timeData.read.m = timeData.data.getMinutes();
+	timeData.read.s = timeData.data.getSeconds();
 
 	timeData.current = {};
 	timeData.current.h = timeData.read.h;
 	timeData.current.m = timeData.read.m;
 	timeData.current.s = timeData.read.s;
+
+	timeData.face.h.innerHTML = timeDisplay_create("H");
+	timeData.face.m.innerHTML = timeDisplay_create("M");
+	timeData.face.s.innerHTML = timeDisplay_create("S");
 
 	light = {};
 	light.source = document.querySelector("#display .bg");
@@ -34,9 +43,27 @@ function time_init(event)
 	light.select = 0;
 	light.current = 0;
 
+	first = true;
+
+	timeDisplay_light();
+
 	enterFrame_init(true);
 
+	time_show();
+
 	trace(timeData.data);
+}
+
+function time_show()
+{
+	fader.addEventListener("transitionend", time_show_event, false);
+	fader.classList.add("timeChange");
+}
+
+function time_show_event(event)
+{
+	fader.removeEventListener("transitionend", time_show_event, false);
+	fader.parentNode.removeChild(fader);
 }
 
 function enterFrame_init(run)
@@ -96,23 +123,64 @@ function timeDisplay_update()
 	}
 }
 
-function timeDisplay_event(event)
+function timeDisplay_create(u)
 {
-	var unit = event.target.classList[0];
 	var dd_h = "";
 	var dd_m = "";
 	var dd_s = "";
+	var timeString = "";
+
+	switch(u)
+	{
+		case "H":
+		{
+			if(timeData.read.h < 10)
+			{
+				dd_h = "0";
+			}
+
+			timeString = dd_h + timeData.read.h;
+
+			break;
+		}
+
+		case "M":
+		{
+			if(timeData.read.m < 10)
+			{
+				dd_m = "0";
+			}
+
+			timeString = dd_m + timeData.read.m;
+
+			break;
+		}
+
+		case "S":
+		{
+			if(timeData.read.s < 10)
+			{
+				dd_s = "0";
+			}
+
+			timeString = dd_s + timeData.read.s;
+
+			break;
+		}
+	}
+
+	return timeString;
+}
+
+function timeDisplay_event(event)
+{
+	var unit = event.target.classList[0];
 
 	if(unit === "th")
 	{
 		timeData.face.h.removeEventListener("transitionend", timeDisplay_event, false);
 
-		if(timeData.read.h < 10)
-		{
-			dd_h = "0";
-		}
-
-		timeData.face.h.innerHTML = dd_h + timeData.read.h;
+		timeData.face.h.innerHTML = timeDisplay_create("H");
 		timeData.current.h = timeData.read.h;
 
 		timeData.face.h.classList.remove('timeChange');
@@ -124,12 +192,7 @@ function timeDisplay_event(event)
 	{
 		timeData.face.m.removeEventListener("transitionend", timeDisplay_event, false);
 
-		if(timeData.read.m < 10)
-		{
-			dd_m = "0";
-		}
-
-		timeData.face.m.innerHTML = dd_m + timeData.read.m;
+		timeData.face.m.innerHTML = timeDisplay_create("M");
 		timeData.current.m = timeData.read.m;
 
 		timeData.face.m.classList.remove('timeChange');
@@ -140,12 +203,7 @@ function timeDisplay_event(event)
 	{
 		timeData.face.s.removeEventListener("transitionend", timeDisplay_event, false);
 
-		if(timeData.read.s < 10)
-		{
-			dd_s = "0";
-		}
-
-		timeData.face.s.innerHTML = dd_s + timeData.read.s;
+		timeData.face.s.innerHTML = timeDisplay_create("S");
 		timeData.current.s = timeData.read.s;
 
 		timeData.face.s.classList.remove('timeChange');
@@ -239,4 +297,10 @@ function timeDisplay_lightApply()
 	light.source.classList.remove(light.settings[light.current]);
 	light.source.classList.add(light.settings[light.select]);
 	light.current = light.select;
+
+	if(first)
+	{
+		first = false;
+		light.source.classList.add("tween");
+	}
 }
