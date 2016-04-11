@@ -147,7 +147,14 @@
 	width: 160px;
 	height: 160px;
 	position: absolute;
-	transform: translate(40px, 40px);
+	left: 40px; top: 40px;
+
+	transition: 600ms ease-in-out;
+}
+
+.char-hide
+{
+	transform: translateX(-260px);
 }
 
 .char-sun .sprite
@@ -177,7 +184,9 @@
 	width: 160px;
 	height: 160px;
 	position: absolute;
-	transform: translate(40px, 40px);
+	left: 40px; top: 40px;
+
+	transition: 600ms ease-in-out;
 }
 
 .char-moon .sprite

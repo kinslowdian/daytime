@@ -44,6 +44,13 @@ function time_init(event)
 	light.select = 0;
 	light.current = 0;
 	light.dayType = "";
+	light.dayTypeCurrent = "";
+
+	light.icon = {};
+	light.icon.sun 					= document.querySelector("#display .char-sun");
+	light.icon.moon 				= document.querySelector("#display .char-moon");
+	light.icon.sun.sprite 	= document.querySelector("#display .char-sun .sprite");
+	light.icon.moon.sprite 	= document.querySelector("#display .char-moon .sprite");
 
 	first = true;
 
@@ -343,4 +350,62 @@ function timeDisplay_dayTypeSort()
 	{
 		light.dayType = "NIGHT";
 	}
+
+	// APPLY THE CHANGE
+	if(light.dayType !== light.dayTypeCurrent)
+	{
+		timeDisplay_dayTypeApply();
+	}
 }
+
+function timeDisplay_dayTypeApply()
+{
+	var target1;
+	var target2;
+
+	if(light.dayType === "DAY")
+	{
+		target1 = light.icon.moon;
+		target2 = light.icon.sun;
+	}
+
+	else if(light.dayType === "NIGHT")
+	{
+		target1 = light.icon.sun;
+		target2 = light.icon.moon;
+	}
+
+	if(target1 && target2)
+	{
+		target1.classList.add("char-hide");
+		target1.addEventListener("transitionend", timeDisplay_dayTypeApplyEvent, false);
+
+		target2.sprite.classList.add("tween");
+		target2.classList.remove("char-hide");
+
+		light.dayTypeCurrent = light.dayType;
+	}
+}
+
+function timeDisplay_dayTypeApplyEvent(event)
+{
+	var target;
+
+	if(light.dayType === "DAY")
+	{
+		target = light.icon.moon;
+	}
+
+	else if(light.dayType === "NIGHT")
+	{
+		target = light.icon.sun;
+	}
+
+	if(target)
+	{
+		target.removeEventListener("transitionend", timeDisplay_dayTypeApplyEvent, false);
+		target.icon.classList.remove("tween");
+	}
+}
+
+
