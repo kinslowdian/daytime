@@ -53,7 +53,8 @@
 	height: auto;
 
 	position: relative;
-	margin: 0 auto 0 10%;
+	/* margin: 0 auto 0 10%; */
+	margin: 0 auto 0 50px;
 	top: 50%;
 	transform: translateY(-50%);
 
@@ -139,6 +140,80 @@
 .light-night
 {
 	background: #263e3e;
+}
+
+.char-sun
+{
+	width: 160px;
+	height: 160px;
+	position: absolute;
+	transform: translate(40px, 40px);
+}
+
+.char-sun .sprite
+{
+	width: inherit;
+	height: inherit;
+	position: relative;
+	transform-origin: 50% 50%;
+}
+
+.char-sun > .tween
+{
+	animation: spriteSunFrames 4300ms linear infinite;
+}
+
+@keyframes spriteSunFrames
+{
+	0%		{transform: translateY(0px);}
+	25%		{transform: translateY(10px);}
+	50%		{transform: translateY(0px);}
+	75%		{transform: translateY(-10px);}
+	100%	{transform: translateY(0px);}
+}
+
+.char-moon
+{
+	width: 160px;
+	height: 160px;
+	position: absolute;
+	transform: translate(40px, 40px);
+}
+
+.char-moon .sprite
+{
+	width: inherit;
+	height: inherit;
+	position: relative;
+	transform-origin: 50% 50%;
+}
+
+.char-moon > .tween
+{
+	animation: spriteMoonFrames 4300ms linear infinite;
+}
+
+@keyframes spriteMoonFrames
+{
+	0%		{transform: rotate(0deg);}
+	25%		{transform: rotate(20deg);}
+	50%		{transform: rotate(0deg);}
+	75%		{transform: rotate(-20deg);}
+	100%	{transform: rotate(0deg);}
+}
+
+.gfx-sun
+{
+	background-image: url(../img/sun.svg);
+	background-position: center center;
+	background-size: 160px 160px;
+}
+
+.gfx-moon
+{
+	background-image: url(../img/moon.svg);
+	background-position: center center;
+	background-size: 160px 160px;
 }
 
 
