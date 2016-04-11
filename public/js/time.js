@@ -43,6 +43,7 @@ function time_init(event)
 	light.settings = ['light-early-morning', 'light-morning', 'light-day', 'light-afternoon', 'light-evening', 'light-night'];
 	light.select = 0;
 	light.current = 0;
+	light.dayType = "";
 
 	first = true;
 
@@ -318,5 +319,28 @@ function timeDisplay_lightApply()
 	{
 		first = false;
 		light.source.classList.add("tween");
+	}
+
+	timeDisplay_dayTypeSort();
+}
+
+function timeDisplay_dayTypeSort()
+{
+	// 0 - 7 MOON
+	if(timeData.current.h >= 0 && timeData.current.h < 7)
+	{
+		light.dayType = "NIGHT";
+	}
+
+	//7 - 20 SUN
+	else if(timeData.current.h >= 7 && timeData.current.h < 20)
+	{
+		light.dayType = "DAY";
+	}
+
+	// 20 - 23 MOON
+	else if(timeData.current.h >= 20 && timeData.current.h < 23)
+	{
+		light.dayType = "NIGHT";
 	}
 }
